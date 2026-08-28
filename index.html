@@ -277,9 +277,17 @@
       user-select:none;
       z-index:5;
       opacity:1;
-      transition:opacity .24s ease;
+      transition:opacity .24s ease,transform .24s ease;
     }
     .frame.changing{opacity:.3}
+    .preview.is-lower-third .frame{
+      inset:auto auto 0 50%;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      transform:translateX(-50%) scale(var(--overlay-scale,1));
+      transform-origin:bottom center;
+    }
 
     .placeholder{
       position:absolute;
@@ -305,6 +313,7 @@
     .control{margin:0 0 22px}
     .control label{display:block;font-weight:900;margin-bottom:8px}
     .control input[type=range]{width:100%;accent-color:var(--blue)}
+    .control[hidden]{display:none}
     .control-help{font-size:.9rem;opacity:.65;line-height:1.45;margin-top:7px}
     .feedback{min-height:1.2em;margin-top:8px;color:#9b2525;font-size:.86rem;font-weight:800}
     .zoom-labels{
@@ -558,6 +567,12 @@
             </div>
           </div>
 
+          <div class="control" id="overlaySizeControl" hidden>
+            <label for="overlaySize">Tamanho da tarja</label>
+            <input id="overlaySize" type="range" min="-25" max="25" step="1" value="0">
+            <div class="control-help">Diminua ou aumente a tarja sem alterar sua foto.</div>
+          </div>
+
           <div class="control">
             <label>3. Arraste a foto</label>
             <div class="control-help">Arraste diretamente sobre a moldura. O movimento é limitado para a foto não escapar da área útil.</div>
@@ -636,6 +651,8 @@
     const placeholder = document.getElementById("placeholder");
     const uploadFeedback = document.getElementById("uploadFeedback");
     const zoom = document.getElementById("zoom");
+    const overlaySizeControl = document.getElementById("overlaySizeControl");
+    const overlaySize = document.getElementById("overlaySize");
     const preview = document.getElementById("preview");
     const downloadBtn = document.getElementById("downloadBtn");
     const resetBtn = document.getElementById("resetBtn");
@@ -652,6 +669,7 @@
       selectedDesign: 0,
       zoom: 1,
       zoomValue: 0,
+      overlayScale: 1,
       offsetX: 0,
       offsetY: 0,
       dragging: false,
@@ -693,6 +711,16 @@
       return 1 + (value / 100) * 1.20;
     }
 
+    function getOverlayScale() {
+      const value = Number(overlaySize.value);
+
+      if (value < 0) {
+        return 1 + (value / 25) * .30;
+      }
+
+      return 1 + (value / 25) * .25;
+    }
+
     function clamp(value, min, max) {
       return Math.min(max, Math.max(min, value));
     }
@@ -731,12 +759,20 @@
       photo.style.transform = `translate(${editorState.offsetX}px, ${editorState.offsetY}px) scale(${editorState.zoom})`;
     }
 
+    function updateOverlayScale() {
+      editorState.overlayScale = getOverlayScale();
+      preview.style.setProperty("--overlay-scale", editorState.overlayScale);
+    }
+
     function resetAdjustments() {
       editorState.offsetX = 0;
       editorState.offsetY = 0;
       editorState.zoomValue = 0;
       editorState.zoom = 1;
+      editorState.overlayScale = 1;
       zoom.value = 0;
+      overlaySize.value = 0;
+      updateOverlayScale();
       updatePhotoTransform();
     }
 
@@ -749,6 +785,7 @@
       editorState.offsetY = 0;
       editorState.zoom = 1;
       editorState.zoomValue = 0;
+      editorState.overlayScale = 1;
       editorState.dragging = false;
       photo.removeAttribute("src");
       input.value = "";
@@ -757,6 +794,7 @@
       downloadBtn.disabled = true;
       preview.classList.remove("dragging");
       zoom.value = 0;
+      overlaySize.value = 0;
       resetAdjustments();
     }
 
@@ -906,6 +944,8 @@
       frameImage.classList.add("changing");
       preview.classList.toggle("is-frame", selected.kind === "frame");
       preview.classList.toggle("is-lower-third", isLowerThird);
+      overlaySizeControl.hidden = !isLowerThird;
+      updateOverlayScale();
 
       nextFrame.onload = () => {
         frameImage.src = selected.image;
@@ -981,6 +1021,7 @@
 
     /* ZOOM */
     zoom.addEventListener("input", updatePhotoTransform);
+    overlaySize.addEventListener("input", updateOverlayScale);
     resetBtn.addEventListener("click", resetAdjustments);
     clearPhotoBtn.addEventListener("click", clearPhoto);
     window.addEventListener("resize", updatePhotoTransform);
@@ -1141,13 +1182,25 @@
       }
 
       /* 3. coloca a moldura ou tarja por cima */
-      const frame = await loadImageSafe(selected.image, designs[0].image);
-      if (!frame) {
-        console.error("Nenhuma moldura disponível para download.");
+      const artwork = await loadImageSafe(selected.image, designs[0].image);
+      if (!artwork) {
+        console.error("Nenhuma arte disponível para download.");
         return;
       }
       ctx.globalCompositeOperation = "source-over";
-      ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+
+      if (selected.kind === "frame") {
+        ctx.drawImage(artwork, 0, 0, canvas.width, canvas.height);
+      } else if (selected.kind === "lowerThird") {
+        const baseScale = canvas.width / artwork.width;
+        const finalScale = baseScale * editorState.overlayScale;
+        const drawWidth = artwork.width * finalScale;
+        const drawHeight = artwork.height * finalScale;
+        const drawX = (canvas.width - drawWidth) / 2;
+        const drawY = canvas.height - drawHeight;
+
+        ctx.drawImage(artwork, drawX, drawY, drawWidth, drawHeight);
+      }
 
       /* 4. exporta PNG com suporte a Safari iOS */
       try {
