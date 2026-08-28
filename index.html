@@ -245,6 +245,10 @@
       mask-position:center;
       mask-size:100% 100%;
     }
+    .photo-mask.full-photo{
+      -webkit-mask-image:none;
+      mask-image:none;
+    }
 
     .user-photo{
       position:absolute;
@@ -372,6 +376,15 @@
       grid-template-columns:repeat(3,1fr);
       gap:18px;
       margin-top:34px;
+    }
+    .design-group{margin-top:34px}
+    .design-group + .design-group{margin-top:42px}
+    .design-group-title{
+      margin:0 0 16px;
+      color:#fff;
+      font-size:1.08rem;
+      font-weight:1000;
+      text-transform:uppercase;
     }
     .frame-card{
       background:#fff;
@@ -563,7 +576,7 @@
         <p class="section-lead">A coleção vai receber outras opções para perfil, feed, Stories e WhatsApp.</p>
       </div>
 
-      <div class="frames" id="frameList" aria-label="Escolha uma moldura"></div>
+      <div id="designList" aria-label="Escolha uma arte"></div>
     </div>
   </section>
 
@@ -571,7 +584,7 @@
     <div class="wrap">
       <div class="reveal">
         <h2>Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará.</h2>
-        <p class="section-lead">Uma presença digital criada a partir da identidade visual da campanha e da relação com Afuá, o Marajó e o Pará.</p>
+        <p class="section-lead">Uma história construída em Afuá e no Marajó, agora apresentada a todo o Pará.</p>
       </div>
 
       <div class="story">
@@ -599,14 +612,17 @@
   <canvas id="canvas" width="1080" height="1080" hidden></canvas>
 
   <script>
-    /* FRAMES */
-    const frames = [
-      { id: "frame-02", title: "Eu tô com Mazinho", image: "assets/frames/frame-02.png", mask: "assets/masks/mask-02.png" },
-      { id: "frame-03", title: "Afuá com Mazinho", image: "assets/frames/frame-03.png", mask: "assets/masks/mask-03.png" },
-      { id: "frame-04", title: "O Marajó confia", image: "assets/frames/frame-04.png", mask: "assets/masks/mask-04.png" },
-      { id: "frame-05", title: "Eu sou 10333", image: "assets/frames/frame-05.png", mask: "assets/masks/mask-05.png" },
-      { id: "frame-06", title: "Time do Mazinho", image: "assets/frames/frame-06.png", mask: "assets/masks/mask-06.png" },
-      { id: "frame-07", title: "Eu e Minha Família Apoiamos Mazinho", image: "assets/frames/frame-07.png", mask: "assets/masks/mask-07.png" }
+    /* DESIGNS */
+    const designs = [
+      { id: "frame-02", title: "Eu tô com Mazinho", kind: "frame", image: "assets/frames/frame-02.png", mask: "assets/masks/mask-02.png" },
+      { id: "frame-03", title: "Afuá com Mazinho", kind: "frame", image: "assets/frames/frame-03.png", mask: "assets/masks/mask-03.png" },
+      { id: "frame-04", title: "O Marajó confia", kind: "frame", image: "assets/frames/frame-04.png", mask: "assets/masks/mask-04.png" },
+      { id: "frame-05", title: "Eu sou 10333", kind: "frame", image: "assets/frames/frame-05.png", mask: "assets/masks/mask-05.png" },
+      { id: "frame-06", title: "Time do Mazinho", kind: "frame", image: "assets/frames/frame-06.png", mask: "assets/masks/mask-06.png" },
+      { id: "frame-07", title: "Eu e Minha Família Apoiamos Mazinho", kind: "frame", image: "assets/frames/frame-07.png", mask: "assets/masks/mask-07.png" },
+      { id: "overlay-01", title: "Tarja Clássica", kind: "lowerThird", image: "assets/overlays/overlay-01.png", mask: null },
+      { id: "overlay-02", title: "Tarja Dinâmica", kind: "lowerThird", image: "assets/overlays/overlay-02.png", mask: null },
+      { id: "overlay-03", title: "Tarja Regional", kind: "lowerThird", image: "assets/overlays/overlay-03.png", mask: null }
     ];
 
     /* ELEMENTOS */
@@ -622,14 +638,14 @@
     const clearPhotoBtn = document.getElementById("clearPhotoBtn");
     const canvas = document.getElementById("canvas");
     const frameImage = document.getElementById("frameImage");
-    const frameList = document.getElementById("frameList");
-    let frameCards = [];
+    const designList = document.getElementById("designList");
+    let designCards = [];
 
     /* ESTADO */
     const editorState = {
       photo: null,
       photoURL: null,
-      selectedFrame: 0,
+      selectedDesign: 0,
       zoom: 1,
       zoomValue: 0,
       offsetX: 0,
@@ -663,8 +679,10 @@
     */
     function getZoomFactor() {
       const value = Number(zoom.value);
+      const selected = getSelectedDesign();
 
       if (value < 0) {
+        if (selected.kind === "lowerThird") return 1;
         return 1 + (value / 100) * .18;
       }
 
@@ -738,8 +756,8 @@
       resetAdjustments();
     }
 
-    function getSelectedFrame() {
-      return frames[editorState.selectedFrame] || frames[0];
+    function getSelectedDesign() {
+      return designs[editorState.selectedDesign] || designs[0];
     }
 
     function createFallbackLabel(text) {
@@ -748,49 +766,72 @@
       return label;
     }
 
-    function renderFrameCards() {
+    function renderDesignCards() {
       const fragment = document.createDocumentFragment();
+      const groups = [
+        { title: "Molduras", kind: "frame" },
+        { title: "Tarjas inferiores", kind: "lowerThird" }
+      ];
 
-      frames.forEach((frame, index) => {
-        const card = document.createElement("button");
-        card.className = `frame-card reveal${index === editorState.selectedFrame ? " active" : ""}`;
-        card.type = "button";
-        card.dataset.frameIndex = String(index);
-        card.setAttribute("aria-pressed", String(index === editorState.selectedFrame));
-        card.setAttribute("aria-label", `Selecionar moldura ${frame.title}`);
+      groups.forEach(group => {
+        const groupEl = document.createElement("section");
+        groupEl.className = "design-group";
+        groupEl.setAttribute("aria-labelledby", `${group.kind}-title`);
 
-        const thumb = document.createElement("div");
-        thumb.className = "frame-thumb";
+        const heading = document.createElement("h3");
+        heading.className = "design-group-title";
+        heading.id = `${group.kind}-title`;
+        heading.textContent = group.title;
 
-        const image = document.createElement("img");
-        image.src = frame.image;
-        image.alt = `Prévia da moldura ${frame.title}`;
-        image.onerror = () => {
-          console.error(`Miniatura não encontrada: ${frame.image}`);
-          image.replaceWith(createFallbackLabel("Moldura pendente"));
-        };
+        const grid = document.createElement("div");
+        grid.className = "frames";
 
-        const meta = document.createElement("div");
-        meta.className = "frame-meta";
+        designs.forEach((design, index) => {
+          if (design.kind !== group.kind) return;
 
-        const title = document.createElement("strong");
-        title.textContent = frame.title;
+          const card = document.createElement("button");
+          card.className = `frame-card reveal${index === editorState.selectedDesign ? " active" : ""}`;
+          card.type = "button";
+          card.dataset.designIndex = String(index);
+          card.setAttribute("aria-pressed", String(index === editorState.selectedDesign));
+          card.setAttribute("aria-label", `Selecionar ${design.title}`);
 
-        const status = document.createElement("span");
-        status.textContent = index === 0 ? "Moldura oficial • disponível" : "Opção de moldura";
+          const thumb = document.createElement("div");
+          thumb.className = "frame-thumb";
 
-        const selected = document.createElement("div");
-        selected.className = "selected-label";
-        selected.textContent = "Selecionada";
+          const image = document.createElement("img");
+          image.src = design.image;
+          image.alt = `Prévia de ${design.title}`;
+          image.onerror = () => {
+            console.error(`Miniatura não encontrada: ${design.image}`);
+            image.replaceWith(createFallbackLabel("Arte pendente"));
+          };
 
-        thumb.appendChild(image);
-        meta.append(title, status, selected);
-        card.append(thumb, meta);
-        fragment.appendChild(card);
+          const meta = document.createElement("div");
+          meta.className = "frame-meta";
+
+          const title = document.createElement("strong");
+          title.textContent = design.title;
+
+          const status = document.createElement("span");
+          status.textContent = design.kind === "frame" ? "Moldura" : "Tarja inferior";
+
+          const selected = document.createElement("div");
+          selected.className = "selected-label";
+          selected.textContent = "Selecionada";
+
+          thumb.appendChild(image);
+          meta.append(title, status, selected);
+          card.append(thumb, meta);
+          grid.appendChild(card);
+        });
+
+        groupEl.append(heading, grid);
+        fragment.appendChild(groupEl);
       });
 
-      frameList.replaceChildren(fragment);
-      frameCards = Array.from(frameList.querySelectorAll(".frame-card"));
+      designList.replaceChildren(fragment);
+      designCards = Array.from(designList.querySelectorAll(".frame-card"));
     }
 
     function setMaskSource(src) {
@@ -838,18 +879,18 @@
     }
 
     function updateActiveCard() {
-      frameCards.forEach((card, index) => {
-        const isActive = index === editorState.selectedFrame;
+      designCards.forEach(card => {
+        const isActive = Number(card.dataset.designIndex) === editorState.selectedDesign;
         card.classList.toggle("active", isActive);
         card.setAttribute("aria-pressed", String(isActive));
       });
     }
 
-    function selectFrame(index) {
-      if (!frames[index]) return;
+    function selectDesign(index) {
+      if (!designs[index]) return;
 
-      editorState.selectedFrame = index;
-      const selected = getSelectedFrame();
+      editorState.selectedDesign = index;
+      const selected = getSelectedDesign();
       const nextFrame = new Image();
 
       frameImage.classList.add("changing");
@@ -860,26 +901,33 @@
       };
 
       nextFrame.onerror = () => {
-        console.error(`Moldura não encontrada: ${selected.image}`);
-        frameImage.src = frames[0].image;
+        console.error(`Arte não encontrada: ${selected.image}`);
+        frameImage.src = designs[0].image;
         frameImage.classList.remove("changing");
       };
 
       nextFrame.src = selected.image;
 
-      const nextMask = new Image();
-      nextMask.onload = () => {
-        editorState.opening = measureMaskOpening(nextMask);
-        setMaskSource(selected.mask);
+      if (selected.kind === "lowerThird") {
+        editorState.opening = { left: 0, right: 1, top: 0, bottom: 1 };
+        photoMask.classList.add("full-photo");
         updatePhotoTransform();
-      };
-      nextMask.onerror = () => {
-        console.error(`Máscara não encontrada: ${selected.mask}`);
-        editorState.opening = { ...defaultOpening };
-        setMaskSource(frames[0].mask);
-        updatePhotoTransform();
-      };
-      nextMask.src = selected.mask;
+      } else {
+        photoMask.classList.remove("full-photo");
+        const nextMask = new Image();
+        nextMask.onload = () => {
+          editorState.opening = measureMaskOpening(nextMask);
+          setMaskSource(selected.mask);
+          updatePhotoTransform();
+        };
+        nextMask.onerror = () => {
+          console.error(`Máscara não encontrada: ${selected.mask}`);
+          editorState.opening = { ...defaultOpening };
+          setMaskSource(designs[0].mask);
+          updatePhotoTransform();
+        };
+        nextMask.src = selected.mask;
+      }
 
       updateActiveCard();
       updatePhotoTransform();
@@ -992,7 +1040,7 @@
     async function exportPng(blob) {
       const file = new File(
         [blob],
-        "mazinho-10333-moldura.png",
+        "mazinho-10333.png",
         { type: "image/png" }
       );
 
@@ -1011,11 +1059,12 @@
       }
 
       const url = URL.createObjectURL(blob);
+      const supportsDownload = "download" in HTMLAnchorElement.prototype;
 
-      if (!isIOSDevice()) {
+      if (!isIOSDevice() && supportsDownload) {
         const link = document.createElement("a");
         link.href = url;
-        link.download = "mazinho-10333-moldura.png";
+        link.download = "mazinho-10333.png";
         document.body.appendChild(link);
         link.click();
         link.remove();
@@ -1034,7 +1083,7 @@
     downloadBtn.addEventListener("click", async () => {
       if (!editorState.photo) return;
 
-      const selected = getSelectedFrame();
+      const selected = getSelectedDesign();
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1066,18 +1115,20 @@
       ctx.globalCompositeOperation = "source-over";
       ctx.drawImage(editorState.photo, drawX, drawY, drawWidth, drawHeight);
 
-      /* 2. corta a foto exatamente pela abertura da moldura */
-      const mask = await loadImageSafe(selected.mask, frames[0].mask);
-      if (!mask) {
-        console.error("Nenhuma máscara disponível. O download foi bloqueado por segurança.");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        return;
+      /* 2. corta a foto quando a arte selecionada usa máscara */
+      if (selected.kind === "frame") {
+        const mask = await loadImageSafe(selected.mask, designs[0].mask);
+        if (!mask) {
+          console.error("Nenhuma máscara disponível. O download foi bloqueado por segurança.");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+        ctx.globalCompositeOperation = "destination-in";
+        ctx.drawImage(mask, 0, 0, canvas.width, canvas.height);
       }
-      ctx.globalCompositeOperation = "destination-in";
-      ctx.drawImage(mask, 0, 0, canvas.width, canvas.height);
 
-      /* 3. coloca a arte da moldura por cima */
-      const frame = await loadImageSafe(selected.image, frames[0].image);
+      /* 3. coloca a moldura ou tarja por cima */
+      const frame = await loadImageSafe(selected.image, designs[0].image);
       if (!frame) {
         console.error("Nenhuma moldura disponível para download.");
         return;
@@ -1108,13 +1159,13 @@
       document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
     }
 
-    renderFrameCards();
+    renderDesignCards();
     if (isIOSDevice()) downloadBtn.textContent = "Compartilhar / Salvar moldura";
-    frameCards.forEach((card, index) => {
-      card.addEventListener("click", () => selectFrame(index));
+    designCards.forEach(card => {
+      card.addEventListener("click", () => selectDesign(Number(card.dataset.designIndex)));
     });
     initAnimations();
-    selectFrame(0);
+    selectDesign(0);
     updatePhotoTransform();
   </script>
 </body>
