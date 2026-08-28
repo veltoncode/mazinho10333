@@ -249,6 +249,10 @@
       -webkit-mask-image:none;
       mask-image:none;
     }
+    .preview.is-lower-third .photo-mask{
+      -webkit-mask-image:none;
+      mask-image:none;
+    }
 
     .user-photo{
       position:absolute;
@@ -840,6 +844,11 @@
       photoMask.style.maskImage = maskValue;
     }
 
+    function clearMaskSource() {
+      photoMask.style.webkitMaskImage = "none";
+      photoMask.style.maskImage = "none";
+    }
+
     function measureMaskOpening(maskImage) {
       const sampleSize = 256;
       const measureCanvas = document.createElement("canvas");
@@ -892,8 +901,11 @@
       editorState.selectedDesign = index;
       const selected = getSelectedDesign();
       const nextFrame = new Image();
+      const isLowerThird = selected.kind === "lowerThird";
 
       frameImage.classList.add("changing");
+      preview.classList.toggle("is-frame", selected.kind === "frame");
+      preview.classList.toggle("is-lower-third", isLowerThird);
 
       nextFrame.onload = () => {
         frameImage.src = selected.image;
@@ -908,9 +920,10 @@
 
       nextFrame.src = selected.image;
 
-      if (selected.kind === "lowerThird") {
+      if (isLowerThird) {
         editorState.opening = { left: 0, right: 1, top: 0, bottom: 1 };
         photoMask.classList.add("full-photo");
+        clearMaskSource();
         updatePhotoTransform();
       } else {
         photoMask.classList.remove("full-photo");
