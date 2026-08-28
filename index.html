@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <!-- SEO -->
+  <title>Mazinho Salomão 10333</title>
+  <meta name="description" content="Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará. Crie sua foto de apoio e compartilhe." />
+  <link rel="canonical" href="https://www.mazinho10333.com.br/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#f6b71b" />
+  <meta property="og:title" content="Mazinho Salomão 10333" />
+  <meta property="og:description" content="Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará. Crie sua foto de apoio e compartilhe." />
+  <meta property="og:image" content="https://www.mazinho10333.com.br/assets/og-image.jpg" />
+  <meta property="og:url" content="https://www.mazinho10333.com.br/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mazinho Salomão 10333" />
+  <meta name="twitter:description" content="Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará. Crie sua foto de apoio e compartilhe." />
+  <meta name="twitter:image" content="https://www.mazinho10333.com.br/assets/og-image.jpg" />
+
+  <style>
+    :root{
+      --yellow:#f5b51b;
+      --blue:#0757a6;
+      --blue2:#00366f;
+      --green:#0f8b4c;
+      --cream:#fff7df;
+      --ink:#10263d;
+      --white:#fff;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input{font:inherit}
+    button:focus-visible,
+    input:focus-visible,
+    .frame-card:focus-visible,
+    .upload:focus-within{
+      outline:4px solid #fff;
+      outline-offset:4px;
+      box-shadow:0 0 0 7px rgba(245,181,27,.55);
+    }
+    .wrap{width:min(1180px,92vw);margin:auto}
+
+    /* HERO */
+    .hero{
+      min-height:100svh;
+      position:relative;
+      display:grid;
+      align-items:center;
+      background:
+        radial-gradient(circle at 80% 20%,#ffd968 0 8%,transparent 28%),
+        linear-gradient(135deg,#f8c42f 0%,#f1ae0d 64%,#e79a00 100%);
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:.13;
+      background-image:linear-gradient(45deg,transparent 43%,#0d579b 43% 47%,transparent 47% 53%,#0d579b 53% 57%,transparent 57%);
+      background-size:58px 58px;
+      animation:drift 14s linear infinite;
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      width:500px;
+      height:500px;
+      border-radius:50%;
+      background:rgba(255,255,255,.13);
+      right:-220px;
+      top:-180px;
+      animation:pulseCircle 8s ease-in-out infinite;
+    }
+    @keyframes drift{to{background-position:116px 58px}}
+    @keyframes pulseCircle{50%{transform:scale(1.12);opacity:.18}}
+
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:36px;
+      align-items:center;
+      padding:100px 0 60px;
+    }
+    .kicker{
+      display:inline-block;
+      background:#0b7f48;
+      color:#fff;
+      padding:9px 15px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.08em;
+      font-size:.8rem;
+      box-shadow:0 8px 20px #0757a633;
+    }
+    h1{
+      font-size:clamp(4.4rem,10vw,9.4rem);
+      line-height:.72;
+      margin:24px 0 20px;
+      text-transform:uppercase;
+      letter-spacing:-.065em;
+      color:#fff;
+      text-shadow:0 8px 0 rgba(5,61,111,.8),0 18px 30px rgba(0,0,0,.15);
+    }
+    h1 span{
+      display:block;
+      color:#0757a6;
+      text-shadow:none;
+      font-size:.28em;
+      letter-spacing:.04em;
+      margin-top:.55em;
+    }
+    .hero-copy p{
+      max-width:620px;
+      font-size:clamp(1.05rem,2.4vw,1.38rem);
+      line-height:1.48;
+      font-weight:700;
+      margin:0 0 28px;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      background:#0757a6;
+      color:#fff;
+      border:0;
+      border-radius:16px;
+      padding:17px 24px;
+      font-size:1rem;
+      font-weight:900;
+      box-shadow:0 12px 0 #00366f,0 20px 35px #00366f33;
+      transition:.25s;
+      cursor:pointer;
+    }
+    .cta:hover{transform:translateY(-4px)}
+    .hero-card{position:relative;min-height:620px}
+    .hero-card img{
+      position:absolute;
+      width:min(560px,100%);
+      right:-15px;
+      bottom:-48px;
+      border-radius:34px 34px 0 0;
+      box-shadow:0 28px 70px #6b4d001f;
+      animation:heroIn .8s cubic-bezier(.2,.7,.2,1) both,floaty 5s ease-in-out infinite .8s;
+    }
+    @keyframes heroIn{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+    @keyframes floaty{50%{transform:translateY(-12px) rotate(.4deg)}}
+    .badge{
+      position:absolute;
+      right:0;
+      top:38px;
+      z-index:3;
+      background:#fff;
+      color:#0757a6;
+      border:5px solid #0757a6;
+      border-radius:50%;
+      width:155px;
+      height:155px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      font-weight:1000;
+      font-size:2.1rem;
+      line-height:.9;
+      transform:rotate(8deg);
+      box-shadow:0 10px 0 #f4c318;
+      animation:badgePop .9s cubic-bezier(.2,.7,.2,1) both .25s;
+    }
+    @keyframes badgePop{0%{opacity:0;transform:rotate(8deg) scale(.82)}70%{transform:rotate(8deg) scale(1.06)}100%{opacity:1;transform:rotate(8deg) scale(1)}}
+
+    /* SEÇÕES */
+    .section{padding:92px 0;position:relative}
+    .section.dark{background:#052f63;color:#fff}
+    .section h2{
+      font-size:clamp(2.4rem,7vw,5.7rem);
+      line-height:.9;
+      margin:0 0 20px;
+      letter-spacing:-.05em;
+      text-transform:uppercase;
+    }
+    .section-lead{font-size:1.18rem;max-width:760px;line-height:1.55;opacity:.88}
+
+    /* ANIMATIONS */
+    .reveal{
+      opacity:0;
+      transform:translateY(36px);
+      transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.show{opacity:1;transform:none}
+
+    /* EDITOR */
+    .editor-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:34px;
+      align-items:start;
+      margin-top:38px;
+    }
+    .preview-shell{position:sticky;top:18px}
+    .preview{
+      aspect-ratio:1/1;
+      background:linear-gradient(135deg,#143d77,#081f47);
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 24px 60px #001c3a55;
+      touch-action:none;
+      cursor:grab;
+      user-select:none;
+    }
+    .preview.dragging{cursor:grabbing}
+
+    /*
+      ESTA É A CORREÇÃO PRINCIPAL:
+      a foto inteira fica dentro desta camada, e esta camada usa
+      uma máscara criada a partir da abertura real da moldura.
+      Assim a foto NUNCA aparece fora do buraco da moldura.
+    */
+    .photo-mask{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      overflow:hidden;
+
+      -webkit-mask-image:url("assets/masks/mask-01.png");
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-position:center;
+      -webkit-mask-size:100% 100%;
+
+      mask-image:url("assets/masks/mask-01.png");
+      mask-repeat:no-repeat;
+      mask-position:center;
+      mask-size:100% 100%;
+    }
+
+    .user-photo{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:translate(0,0) scale(1);
+      transform-origin:center center;
+      pointer-events:none;
+      user-select:none;
+      will-change:transform;
+    }
+
+    .frame{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:fill;
+      pointer-events:none;
+      user-select:none;
+      z-index:5;
+      opacity:1;
+      transition:opacity .24s ease;
+    }
+    .frame.changing{opacity:.3}
+
+    .placeholder{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      color:#dce8ff;
+      padding:28px;
+      font-weight:700;
+      z-index:2;
+      pointer-events:none;
+    }
+    .placeholder strong{display:block;font-size:1.25rem;margin-bottom:8px}
+
+    .controls{
+      background:#fff;
+      border-radius:28px;
+      padding:24px;
+      color:var(--ink);
+      box-shadow:0 18px 50px #001a3522;
+    }
+    .control{margin:0 0 22px}
+    .control label{display:block;font-weight:900;margin-bottom:8px}
+    .control input[type=range]{width:100%;accent-color:var(--blue)}
+    .control-help{font-size:.9rem;opacity:.65;line-height:1.45;margin-top:7px}
+    .feedback{min-height:1.2em;margin-top:8px;color:#9b2525;font-size:.86rem;font-weight:800}
+    .zoom-labels{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:5px;
+      color:#587087;
+      font-size:.8rem;
+      font-weight:800;
+    }
+    .zoom-labels span:nth-child(2){color:var(--blue)}
+
+    .upload{
+      display:flex !important;
+      justify-content:center;
+      align-items:center;
+      min-height:76px;
+      border:3px dashed #2c6bae;
+      border-radius:18px;
+      font-weight:900;
+      cursor:pointer;
+      background:#f6f9ff;
+      transition:transform .22s ease,background .22s ease,border-color .22s ease;
+    }
+    .upload:hover{background:#edf4ff;transform:translateY(-2px)}
+    .upload input{display:none}
+
+    .editor-buttons{display:grid;gap:12px}
+    .reset,
+    .clear-photo{
+      width:100%;
+      border:2px solid #d7e1ee;
+      background:#fff;
+      color:var(--blue2);
+      font-weight:900;
+      padding:14px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease;
+    }
+    .reset:hover,
+    .clear-photo:hover,
+    .download:hover{transform:translateY(-2px)}
+    .reset:active,
+    .clear-photo:active,
+    .download:active,
+    .frame-card:active{transform:translateY(1px)}
+    .clear-photo{
+      border-color:#f0c9c9;
+      background:#fff8f8;
+      color:#9b2525;
+    }
+    .clear-photo:hover{background:#fff0f0}
+    .download{
+      width:100%;
+      border:0;
+      background:var(--yellow);
+      color:#06366a;
+      font-weight:1000;
+      padding:18px;
+      border-radius:16px;
+      font-size:1.05rem;
+      cursor:pointer;
+      box-shadow:0 8px 0 #c98800;
+      transition:transform .22s ease,box-shadow .22s ease,opacity .22s ease;
+    }
+    .download:disabled{opacity:.45;cursor:not-allowed}
+
+    /* FRAMES */
+    .frames{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:34px;
+    }
+    .frame-card{
+      background:#fff;
+      color:var(--ink);
+      border:0;
+      border-radius:18px;
+      padding:12px;
+      min-height:230px;
+      display:grid;
+      grid-template-rows:1fr auto;
+      gap:12px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 12px 30px #001c3a20;
+      cursor:pointer;
+      text-align:left;
+      transition:transform .25s ease,box-shadow .25s ease,outline-color .25s ease;
+    }
+    @media(hover:hover){
+      .frame-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:0 18px 36px #001c3a2b}
+    }
+    .frame-card:before{
+      content:"10333";
+      position:absolute;
+      font-size:5rem;
+      font-weight:1000;
+      right:-8px;
+      top:0;
+      opacity:.07;
+    }
+    .frame-thumb{
+      aspect-ratio:1/1;
+      border-radius:12px;
+      background:linear-gradient(135deg,#edf4ff,#fff7df);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      position:relative;
+      z-index:2;
+    }
+    .frame-thumb img{width:100%;height:100%;object-fit:contain;display:block}
+    .frame-thumb span{font-size:.78rem;font-weight:900;color:#587087;text-align:center;padding:12px}
+    .frame-meta{position:relative;z-index:2}
+    .frame-card strong{display:block;font-size:1.08rem;line-height:1.2}
+    .frame-card span{display:block;opacity:.7;font-size:.86rem;margin-top:5px}
+    .selected-label{
+      display:none;
+      margin-top:8px;
+      color:#0757a6;
+      font-size:.78rem;
+      font-weight:1000;
+      text-transform:uppercase;
+    }
+    .frame-card.active{
+      outline:5px solid var(--yellow);
+      transform:translateY(-3px);
+      box-shadow:0 18px 42px #001c3a30;
+    }
+    .frame-card.active .selected-label{display:block}
+
+    /* HISTÓRIA */
+    .story{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+    .story-card{min-height:440px;border-radius:30px;overflow:hidden;position:relative;background:#eee}
+    .story-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+    .story-card:hover img{transform:scale(1.04)}
+    .story-card .caption{
+      position:absolute;
+      inset:auto 0 0;
+      padding:34px;
+      background:linear-gradient(transparent,rgba(0,0,0,.78));
+      color:#fff;
+    }
+    .story-card h3{font-size:2rem;margin:0 0 6px}
+
+    footer{padding:34px 0;background:#041f42;color:#fff;text-align:center;font-size:.9rem}
+    .mini{opacity:.72;margin-top:6px}
+    .developer-credit{opacity:.48;margin-top:12px;font-size:.78rem}
+
+    /* RESPONSIVE */
+    @media(max-width:860px){
+      .hero-grid,.editor-grid,.story{grid-template-columns:1fr}
+      .hero-grid{padding-top:72px}
+      .hero-card{min-height:480px}
+      .hero-card img{right:0}
+      .badge{width:118px;height:118px;font-size:1.55rem}
+      .preview-shell{position:relative;top:auto}
+      .frames{grid-template-columns:1fr 1fr}
+      .section{padding:72px 0}
+    }
+    @media(max-width:520px){
+      h1{font-size:4.6rem}
+      .hero-card{min-height:390px}
+      .frames{grid-template-columns:1fr}
+      .frame-card{min-height:210px}
+      .section h2{font-size:3rem}
+      .cta{width:100%}
+      .controls{padding:18px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+      .reveal{opacity:1;transform:none}
+      .frame{transition:none}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <div class="kicker">DEPUTADO ESTADUAL • 10333</div>
+        <h1>MAZINHO<span>SALOMÃO</span></h1>
+        <p>Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará. Crie agora sua foto de apoio e compartilhe.</p>
+        <a class="cta" href="#moldura">Criar minha foto de apoio ↓</a>
+      </div>
+
+      <div class="hero-card reveal">
+        <div class="badge">EU TÔ<br>10333</div>
+        <img src="assets/mazinho-hero.jpeg" alt="Material de campanha de Mazinho Salomão">
+      </div>
+    </div>
+  </header>
+
+  <section class="section dark" id="moldura">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Mostre que você tá com Mazinho.</h2>
+        <p class="section-lead">Escolha sua foto, mova com o dedo ou mouse, ajuste o zoom e baixe a arte pronta.</p>
+      </div>
+
+      <div class="editor-grid">
+        <div class="preview-shell reveal">
+          <div class="preview" id="preview">
+            <div class="photo-mask" id="photoMask">
+              <img id="photo" class="user-photo" alt="">
+            </div>
+
+            <div class="placeholder" id="placeholder">
+              <div>
+                <strong>📸 Coloque sua foto aqui</strong>
+                Escolha uma imagem para começar
+              </div>
+            </div>
+
+            <img id="frameImage" class="frame" src="assets/frames/frame-01.png" alt="Moldura Mazinho 10333">
+          </div>
+        </div>
+
+        <div class="controls reveal">
+          <div class="control">
+            <label>1. Escolha sua foto</label>
+            <label class="upload">
+              📷 Escolher foto
+              <input id="fileInput" type="file" accept="image/*">
+            </label>
+            <div class="feedback" id="uploadFeedback" aria-live="polite"></div>
+          </div>
+
+          <div class="control">
+            <label for="zoom">2. Zoom</label>
+            <!-- O ZERO fica exatamente no centro. -->
+            <input id="zoom" type="range" min="-100" max="100" step="1" value="0">
+            <div class="zoom-labels">
+              <span>− menor</span>
+              <span>enquadramento</span>
+              <span>maior +</span>
+            </div>
+          </div>
+
+          <div class="control">
+            <label>3. Arraste a foto</label>
+            <div class="control-help">Arraste diretamente sobre a moldura. O movimento é limitado para a foto não escapar da área útil.</div>
+          </div>
+
+          <div class="editor-buttons">
+            <button id="resetBtn" class="reset" type="button">↻ Resetar ajustes</button>
+            <button id="clearPhotoBtn" class="clear-photo" type="button">Apagar foto</button>
+            <button id="downloadBtn" class="download" type="button" disabled>⬇ Baixar minha moldura</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Uma campanha. Várias molduras.</h2>
+        <p class="section-lead">A coleção vai receber outras opções para perfil, feed, Stories e WhatsApp.</p>
+      </div>
+
+      <div class="frames" id="frameList" aria-label="Escolha uma moldura"></div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Fez por Afuá. Fez pelo Marajó. Vai fazer pelo Pará.</h2>
+        <p class="section-lead">Uma presença digital criada a partir da identidade visual da campanha e da relação com Afuá, o Marajó e o Pará.</p>
+      </div>
+
+      <div class="story">
+        <article class="story-card reveal">
+          <img src="assets/mazinho-afua.jpeg" alt="Campanha em Afuá">
+          <div class="caption"><h3>Afuá</h3><div>História, trabalho e presença.</div></div>
+        </article>
+
+        <article class="story-card reveal">
+          <img src="assets/mazinho-para.jpeg" alt="Campanha no Pará">
+          <div class="caption"><h3>Pará</h3><div>Uma identidade feita para crescer.</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <strong>mazinho10333.com.br</strong>
+      <div class="mini">© 2026 Mazinho Salomão • Todos os direitos reservados</div>
+      <div class="developer-credit">Desenvolvimento web por Herivelto Sarges</div>
+  </footer>
+
+  <canvas id="canvas" width="1080" height="1080" hidden></canvas>
+
+  <script>
+    /* FRAMES */
+    const frames = [
+      { id: "frame-01", title: "Eu apoio Mazinho", image: "assets/frames/frame-01.png", mask: "assets/masks/mask-01.png" },
+      { id: "frame-02", title: "Eu tô com Mazinho", image: "assets/frames/frame-02.png", mask: "assets/masks/mask-02.png" },
+      { id: "frame-03", title: "Afuá com Mazinho", image: "assets/frames/frame-03.png", mask: "assets/masks/mask-03.png" },
+      { id: "frame-04", title: "O Marajó confia", image: "assets/frames/frame-04.png", mask: "assets/masks/mask-04.png" },
+      { id: "frame-05", title: "Eu sou 10333", image: "assets/frames/frame-05.png", mask: "assets/masks/mask-05.png" },
+      { id: "frame-06", title: "Time do Mazinho", image: "assets/frames/frame-06.png", mask: "assets/masks/mask-06.png" },
+      { id: "frame-07", title: "Eu e Minha Família Apoiamos Mazinho", image: "assets/frames/frame-07.png", mask: "assets/masks/mask-07.png" }
+    ];
+
+    /* ELEMENTOS */
+    const input = document.getElementById("fileInput");
+    const photo = document.getElementById("photo");
+    const photoMask = document.getElementById("photoMask");
+    const placeholder = document.getElementById("placeholder");
+    const uploadFeedback = document.getElementById("uploadFeedback");
+    const zoom = document.getElementById("zoom");
+    const preview = document.getElementById("preview");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const clearPhotoBtn = document.getElementById("clearPhotoBtn");
+    const canvas = document.getElementById("canvas");
+    const frameImage = document.getElementById("frameImage");
+    const frameList = document.getElementById("frameList");
+    let frameCards = [];
+
+    /* ESTADO */
+    const editorState = {
+      photo: null,
+      photoURL: null,
+      selectedFrame: 0,
+      zoom: 1,
+      zoomValue: 0,
+      offsetX: 0,
+      offsetY: 0,
+      dragging: false,
+      startPointerX: 0,
+      startPointerY: 0,
+      startOffsetX: 0,
+      startOffsetY: 0,
+      opening: null
+    };
+
+    /*
+      A abertura útil da máscara, em porcentagem do preview.
+      Estes números vieram da própria moldura enviada.
+      Servem somente para limitar o arraste.
+    */
+    const defaultOpening = {
+      left: .127,
+      right: .852,
+      top: .163,
+      bottom: .696
+    };
+    editorState.opening = { ...defaultOpening };
+
+    /*
+      Slider centralizado:
+      -100 => 0.82x
+         0 => 1.00x
+       100 => 2.20x
+    */
+    function getZoomFactor() {
+      const value = Number(zoom.value);
+
+      if (value < 0) {
+        return 1 + (value / 100) * .18;
+      }
+
+      return 1 + (value / 100) * 1.20;
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    /*
+      Impede arrastar a foto a ponto de deixar a abertura principal
+      sem imagem. Como a abertura real ocupa menos que o quadrado,
+      ainda é possível reduzir a foto até 0.78x.
+    */
+    function clampOffsets() {
+      const rect = preview.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      const scale = editorState.zoom;
+
+      const scaledW = w * scale;
+      const scaledH = h * scale;
+
+      const naturalLeft = (w - scaledW) / 2;
+      const naturalTop = (h - scaledH) / 2;
+
+      const activeOpening = editorState.opening || defaultOpening;
+      const minX = activeOpening.right * w - (naturalLeft + scaledW);
+      const maxX = activeOpening.left * w - naturalLeft;
+      const minY = activeOpening.bottom * h - (naturalTop + scaledH);
+      const maxY = activeOpening.top * h - naturalTop;
+
+      editorState.offsetX = clamp(editorState.offsetX, minX, maxX);
+      editorState.offsetY = clamp(editorState.offsetY, minY, maxY);
+    }
+
+    function updatePhotoTransform() {
+      editorState.zoomValue = Number(zoom.value);
+      editorState.zoom = getZoomFactor();
+      clampOffsets();
+      photo.style.transform = `translate(${editorState.offsetX}px, ${editorState.offsetY}px) scale(${editorState.zoom})`;
+    }
+
+    function resetAdjustments() {
+      editorState.offsetX = 0;
+      editorState.offsetY = 0;
+      editorState.zoomValue = 0;
+      editorState.zoom = 1;
+      zoom.value = 0;
+      updatePhotoTransform();
+    }
+
+    function clearPhoto() {
+      if (editorState.photoURL) URL.revokeObjectURL(editorState.photoURL);
+
+      editorState.photoURL = null;
+      editorState.photo = null;
+      editorState.offsetX = 0;
+      editorState.offsetY = 0;
+      editorState.zoom = 1;
+      editorState.zoomValue = 0;
+      editorState.dragging = false;
+      photo.removeAttribute("src");
+      input.value = "";
+      uploadFeedback.textContent = "";
+      placeholder.style.display = "grid";
+      downloadBtn.disabled = true;
+      preview.classList.remove("dragging");
+      zoom.value = 0;
+      resetAdjustments();
+    }
+
+    function getSelectedFrame() {
+      return frames[editorState.selectedFrame] || frames[0];
+    }
+
+    function createFallbackLabel(text) {
+      const label = document.createElement("span");
+      label.textContent = text;
+      return label;
+    }
+
+    function renderFrameCards() {
+      const fragment = document.createDocumentFragment();
+
+      frames.forEach((frame, index) => {
+        const card = document.createElement("button");
+        card.className = `frame-card reveal${index === editorState.selectedFrame ? " active" : ""}`;
+        card.type = "button";
+        card.dataset.frameIndex = String(index);
+        card.setAttribute("aria-pressed", String(index === editorState.selectedFrame));
+        card.setAttribute("aria-label", `Selecionar moldura ${frame.title}`);
+
+        const thumb = document.createElement("div");
+        thumb.className = "frame-thumb";
+
+        const image = document.createElement("img");
+        image.src = frame.image;
+        image.alt = `Prévia da moldura ${frame.title}`;
+        image.onerror = () => {
+          console.error(`Miniatura não encontrada: ${frame.image}`);
+          image.replaceWith(createFallbackLabel("Moldura pendente"));
+        };
+
+        const meta = document.createElement("div");
+        meta.className = "frame-meta";
+
+        const title = document.createElement("strong");
+        title.textContent = frame.title;
+
+        const status = document.createElement("span");
+        status.textContent = index === 0 ? "Moldura oficial • disponível" : "Opção de moldura";
+
+        const selected = document.createElement("div");
+        selected.className = "selected-label";
+        selected.textContent = "Selecionada";
+
+        thumb.appendChild(image);
+        meta.append(title, status, selected);
+        card.append(thumb, meta);
+        fragment.appendChild(card);
+      });
+
+      frameList.replaceChildren(fragment);
+      frameCards = Array.from(frameList.querySelectorAll(".frame-card"));
+    }
+
+    function setMaskSource(src) {
+      const maskValue = `url("${src}")`;
+      photoMask.style.webkitMaskImage = maskValue;
+      photoMask.style.maskImage = maskValue;
+    }
+
+    function measureMaskOpening(maskImage) {
+      const sampleSize = 256;
+      const measureCanvas = document.createElement("canvas");
+      const ctx = measureCanvas.getContext("2d");
+      let minX = sampleSize;
+      let minY = sampleSize;
+      let maxX = 0;
+      let maxY = 0;
+
+      measureCanvas.width = sampleSize;
+      measureCanvas.height = sampleSize;
+      ctx.drawImage(maskImage, 0, 0, sampleSize, sampleSize);
+
+      const pixels = ctx.getImageData(0, 0, sampleSize, sampleSize).data;
+
+      for (let y = 0; y < sampleSize; y += 1) {
+        for (let x = 0; x < sampleSize; x += 1) {
+          const alpha = pixels[(y * sampleSize + x) * 4 + 3];
+
+          if (alpha > 16) {
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
+          }
+        }
+      }
+
+      if (minX > maxX || minY > maxY) return { ...defaultOpening };
+
+      return {
+        left: minX / sampleSize,
+        right: (maxX + 1) / sampleSize,
+        top: minY / sampleSize,
+        bottom: (maxY + 1) / sampleSize
+      };
+    }
+
+    function updateActiveCard() {
+      frameCards.forEach((card, index) => {
+        const isActive = index === editorState.selectedFrame;
+        card.classList.toggle("active", isActive);
+        card.setAttribute("aria-pressed", String(isActive));
+      });
+    }
+
+    function selectFrame(index) {
+      if (!frames[index]) return;
+
+      editorState.selectedFrame = index;
+      const selected = getSelectedFrame();
+      const nextFrame = new Image();
+
+      frameImage.classList.add("changing");
+
+      nextFrame.onload = () => {
+        frameImage.src = selected.image;
+        frameImage.classList.remove("changing");
+      };
+
+      nextFrame.onerror = () => {
+        console.error(`Moldura não encontrada: ${selected.image}`);
+        frameImage.src = frames[0].image;
+        frameImage.classList.remove("changing");
+      };
+
+      nextFrame.src = selected.image;
+
+      const nextMask = new Image();
+      nextMask.onload = () => {
+        editorState.opening = measureMaskOpening(nextMask);
+        setMaskSource(selected.mask);
+        updatePhotoTransform();
+      };
+      nextMask.onerror = () => {
+        console.error(`Máscara não encontrada: ${selected.mask}`);
+        editorState.opening = { ...defaultOpening };
+        setMaskSource(frames[0].mask);
+        updatePhotoTransform();
+      };
+      nextMask.src = selected.mask;
+
+      updateActiveCard();
+      updatePhotoTransform();
+    }
+
+    /* UPLOAD */
+    input.addEventListener("change", () => {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        input.value = "";
+        uploadFeedback.textContent = "Escolha um arquivo de imagem.";
+        return;
+      }
+
+      if (editorState.photoURL) URL.revokeObjectURL(editorState.photoURL);
+      editorState.photoURL = URL.createObjectURL(file);
+
+      photo.src = editorState.photoURL;
+      editorState.photo = new Image();
+
+      editorState.photo.onload = () => {
+        uploadFeedback.textContent = "";
+        placeholder.style.display = "none";
+        downloadBtn.disabled = false;
+        resetAdjustments();
+      };
+
+      editorState.photo.onerror = () => {
+        const message = "Não foi possível carregar essa imagem.";
+        clearPhoto();
+        uploadFeedback.textContent = message;
+      };
+
+      editorState.photo.src = editorState.photoURL;
+    });
+
+    /* ZOOM */
+    zoom.addEventListener("input", updatePhotoTransform);
+    resetBtn.addEventListener("click", resetAdjustments);
+    clearPhotoBtn.addEventListener("click", clearPhoto);
+    window.addEventListener("resize", updatePhotoTransform);
+    updatePhotoTransform();
+
+    /* ARRASTAR */
+    preview.addEventListener("pointerdown", event => {
+      if (!editorState.photo) return;
+
+      editorState.dragging = true;
+      preview.classList.add("dragging");
+      preview.setPointerCapture(event.pointerId);
+
+      editorState.startPointerX = event.clientX;
+      editorState.startPointerY = event.clientY;
+      editorState.startOffsetX = editorState.offsetX;
+      editorState.startOffsetY = editorState.offsetY;
+    });
+
+    preview.addEventListener("pointermove", event => {
+      if (!editorState.dragging) return;
+
+      editorState.offsetX = editorState.startOffsetX + (event.clientX - editorState.startPointerX);
+      editorState.offsetY = editorState.startOffsetY + (event.clientY - editorState.startPointerY);
+      updatePhotoTransform();
+    });
+
+    function stopDragging() {
+      editorState.dragging = false;
+      preview.classList.remove("dragging");
+    }
+
+    preview.addEventListener("pointerup", stopDragging);
+    preview.addEventListener("pointercancel", stopDragging);
+
+    /*
+      Carrega uma imagem auxiliar antes da geração do arquivo.
+    */
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error(`Imagem não encontrada: ${src}`));
+        image.src = src;
+      });
+    }
+
+    async function loadImageSafe(src, fallback) {
+      try {
+        return await loadImage(src);
+      } catch (error) {
+        console.error(error.message);
+        return fallback ? loadImage(fallback).catch(() => null) : null;
+      }
+    }
+
+    /* DOWNLOAD */
+    downloadBtn.addEventListener("click", async () => {
+      if (!editorState.photo) return;
+
+      const selected = getSelectedFrame();
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const imageWidth = editorState.photo.naturalWidth || editorState.photo.width;
+      const imageHeight = editorState.photo.naturalHeight || editorState.photo.height;
+
+      /* comportamento equivalente ao object-fit: cover */
+      const coverScale = Math.max(
+        canvas.width / imageWidth,
+        canvas.height / imageHeight
+      );
+
+      const finalScale = coverScale * editorState.zoom;
+
+      const drawWidth = imageWidth * finalScale;
+      const drawHeight = imageHeight * finalScale;
+
+      let drawX = (canvas.width - drawWidth) / 2;
+      let drawY = (canvas.height - drawHeight) / 2;
+
+      /* converte o deslocamento da tela para o canvas 1080x1080 */
+      const previewRect = preview.getBoundingClientRect();
+      const movementScale = canvas.width / previewRect.width;
+
+      drawX += editorState.offsetX * movementScale;
+      drawY += editorState.offsetY * movementScale;
+
+      /* 1. desenha a foto */
+      ctx.globalCompositeOperation = "source-over";
+      ctx.drawImage(editorState.photo, drawX, drawY, drawWidth, drawHeight);
+
+      /* 2. corta a foto exatamente pela abertura da moldura */
+      const mask = await loadImageSafe(selected.mask, frames[0].mask);
+      if (!mask) {
+        console.error("Nenhuma máscara disponível. O download foi bloqueado por segurança.");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(mask, 0, 0, canvas.width, canvas.height);
+
+      /* 3. coloca a arte da moldura por cima */
+      const frame = await loadImageSafe(selected.image, frames[0].image);
+      if (!frame) {
+        console.error("Nenhuma moldura disponível para download.");
+        return;
+      }
+      ctx.globalCompositeOperation = "source-over";
+      ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+
+      /* 4. baixa PNG com transparência fora da moldura */
+      const link = document.createElement("a");
+      link.download = "mazinho-10333-moldura.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+    function initAnimations() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("show");
+        });
+      }, { threshold: .12 });
+
+      document.querySelectorAll(".frame-card.reveal").forEach((el, index) => {
+        el.style.transitionDelay = `${Math.min(index * 35, 245)}ms`;
+      });
+
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    }
+
+    renderFrameCards();
+    frameCards.forEach((card, index) => {
+      card.addEventListener("click", () => selectFrame(index));
+    });
+    initAnimations();
+    selectFrame(0);
+    updatePhotoTransform();
+  </script>
+</body>
+</html>
