@@ -976,6 +976,60 @@
       }
     }
 
+    function canvasToPngBlob(targetCanvas) {
+      return new Promise((resolve, reject) => {
+        targetCanvas.toBlob(blob => {
+          blob ? resolve(blob) : reject(new Error("Não foi possível gerar o PNG da moldura."));
+        }, "image/png");
+      });
+    }
+
+    function isIOSDevice() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
+    async function exportPng(blob) {
+      const file = new File(
+        [blob],
+        "mazinho-10333-moldura.png",
+        { type: "image/png" }
+      );
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: "Mazinho 10333",
+            text: "Minha moldura Mazinho 10333"
+          });
+          return;
+        } catch (error) {
+          if (error && error.name === "AbortError") return;
+          console.error("Falha ao compartilhar arquivo:", error);
+        }
+      }
+
+      const url = URL.createObjectURL(blob);
+
+      if (!isIOSDevice()) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "mazinho-10333-moldura.png";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        return;
+      }
+
+      const opened = window.open(url, "_blank");
+
+      if (!opened) {
+        console.error("O navegador bloqueou a abertura da imagem em nova aba.");
+      }
+    }
+
     /* DOWNLOAD */
     downloadBtn.addEventListener("click", async () => {
       if (!editorState.photo) return;
@@ -1031,11 +1085,13 @@
       ctx.globalCompositeOperation = "source-over";
       ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 
-      /* 4. baixa PNG com transparência fora da moldura */
-      const link = document.createElement("a");
-      link.download = "mazinho-10333-moldura.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      /* 4. exporta PNG com suporte a Safari iOS */
+      try {
+        const blob = await canvasToPngBlob(canvas);
+        await exportPng(blob);
+      } catch (error) {
+        console.error(error);
+      }
     });
 
     function initAnimations() {
@@ -1053,6 +1109,7 @@
     }
 
     renderFrameCards();
+    if (isIOSDevice()) downloadBtn.textContent = "Compartilhar / Salvar moldura";
     frameCards.forEach((card, index) => {
       card.addEventListener("click", () => selectFrame(index));
     });
